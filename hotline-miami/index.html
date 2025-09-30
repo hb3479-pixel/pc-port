@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- removed <base> line so it uses local files -->
+    <base href="https://cdn.jsdelivr.net/gh/genizy/web-port@23bcb22895b42008359e76f1e08f1b7fad4a71e9/hotline-miami/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="pragma" content="no-cache"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,8 +66,7 @@
         <canvas id="canvas"></canvas>
     </div>
 
-    <!-- keep original loader -->
-    <script type="text/javascript" src="html5game/HotlineMiami.js"></script>
+    <script type="text/javascript" src="html5game/HotlineMiami.js?XIUAC=2092382048"></script>
     <script>
         function resizeCanvas() {
             const canvas = document.getElementById("canvas");
@@ -80,34 +79,6 @@
             resizeCanvas();
             GameMaker_Init();
         });
-    </script>
-
-    <!-- 🔧 Keyboard patch -->
-    <script>
-    (function() {
-      let keys = {};
-
-      window.addEventListener("keydown", e => { keys[e.key] = true; });
-      window.addEventListener("keyup", e => { keys[e.key] = false; });
-
-      // Override GameMaker keyboard_check
-      window.keyboard_check = function(vk) {
-        switch(vk) {
-          case 37: return keys["ArrowLeft"]  || keys["a"] || keys["A"];
-          case 38: return keys["ArrowUp"]    || keys["w"] || keys["W"];
-          case 39: return keys["ArrowRight"] || keys["d"] || keys["D"];
-          case 40: return keys["ArrowDown"]  || keys["s"] || keys["S"];
-          default: return false;
-        }
-      };
-
-      // Safety: clear stuck keys if window loses focus
-      setInterval(() => {
-        if (!document.hasFocus()) {
-          keys = {};
-        }
-      }, 100);
-    })();
     </script>
 </body>
 </html>
