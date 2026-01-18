@@ -2,7 +2,7 @@ name: Deploy Bendy Only
 on:
   push:
     branches: [main]
-  workflow_dispatch: # This adds a "Run" button for you
+  workflow_dispatch:
 permissions:
   contents: read
   pages: write
@@ -14,12 +14,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          sparse-checkout: 'bendy-and-the-time-machine'
+          sparse-checkout: |
+            *
+          sparse-checkout-cone-mode: false
+      
+      - name: Verify Folders
+        run: ls -R # This tells us exactly what folders exist if it fails again
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'bendy-and-the-time-machine'
+          # Change the line below if the folder name is different!
+          path: 'bendy-and-the-time-machine' 
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
